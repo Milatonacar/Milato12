@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Página Pessoal</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #000; /* Fundo preto para o header */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #f7c244; /* Cor amarela para o logo */
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #f7c244; /* Cor amarela para os links */
+            margin: 0 15px;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #fff; /* Cor branca ao passar o cursor */
+        }
+
+        /* Menu de navegação com três barras */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background-color: #f7c244; /* Cor amarela para as barras do menu */
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        .menu-toggle div:nth-child(2) {
+            width: 20px;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #000; /* Fundo preto para o menu */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .menu-content a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #f7c244; /* Cor amarela para os links */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu-content a:hover {
+            background-color: #f7c244; /* Cor de fundo amarela ao passar o cursor */
+            color: #000; /* Cor do texto preto ao passar o cursor */
+        }
+
+        #hero {
+            background-color: #f7c244; /* Fundo amarelo para a seção hero */
+            padding: 100px 20px 50px;
+            text-align: center;
+            margin-top: 60px; /* Compensar o tamanho do header */
+            position: relative;
+        }
+
+        #hero .hero-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        #hero img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #hero .description {
+            max-width: 400px;
+            text-align: left;
+        }
+
+        #hero h2 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #333;
+        }
+
+        #hero .description p {
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: #000; /* Fundo preto para o footer */
+            color: #f7c244; /* Texto amarelo para o footer */
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Seções ocultas */
+        #sobre, #contato, #servicos, #meulivro {
+            padding: 40px 20px;
+            display: none; /* Ocultar por padrão */
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #000; /* Fundo preto para os botões */
+            color: #f7c244; /* Texto amarelo para os botões */
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #f7c244; /* Fundo amarelo ao passar o cursor */
+            color: #000; /* Texto preto ao passar o cursor */
+        }
+
+        /* Estilos para o formulário de contato */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .contact-form input[type="submit"] {
+            background-color: #000; /* Fundo preto para o botão de envio */
+            color: #f7c244; /* Texto amarelo para o botão de envio */
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form input[type="submit"]:hover {
+            background-color: #f7c244; /* Fundo amarelo ao passar o cursor */
+            color: #000; /* Texto preto ao passar o cursor */
+        }
+
+        /* Responsividade para menu de três barras */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-content {
+                display: none;
+            }
+
+            .menu-content.show {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Minha Página</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <nav>
+            <a href="#" onclick="showSection('hero')">Página Inicial</a>
+            <a href="#" onclick="showSection('sobre')">Sobre Mim</a>
+            <a href="#" onclick="showSection('contato')">Contato</a>
+            <a href="#" onclick="showSection('servicos')">Meus Serviços</a>
+            <a href="#" onclick="showSection('meulivro')">Meu Livro</a>
+        </nav>
+        <div class="menu-content" id="menuContent">
+            <a href="#" onclick="showSection('hero')">Página Inicial</a>
+            <a href="#" onclick="showSection('sobre')">Sobre Mim</a>
+            <a href="#" onclick="showSection('contato')">Contato</a>
+            <a href="#" onclick="showSection('servicos')">Meus Serviços</a>
+            <a href="#" onclick="showSection('meulivro')">Meu Livro</a>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <img src="perfil.jpg" alt="Foto de Perfil">
+            <div class="description">
+                <h2>Olá, sou MILATO</h2>
+                <p>Digital Marketing</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="sobre">
+        <h2>Sobre Mim</h2>
+        <p>Olá! Meu nome é Mussagy Dominos Subuhana Nacar, natural da cidade da Beira. Sou estudante de Engenharia Informática, onde estou desenvolvendo minhas habilidades em programação e desenvolvimento de software. Tenho paixão por tecnologia e inovação, e estou sempre buscando novos desafios e oportunidades para aprender e crescer profissionalmente.</p>
+        <h3>Habilidades</h3>
+        <ul>
+            <li>Desenvolvimento Web</li>
+            <li>Programação em JavaScript e Python</li>
+            <li>Design de Interfaces</li>
+            <li>Gerenciamento de Projetos</li>
+        </ul>
+        <h3>Educação</h3>
+        <ul>
+            <li>Licenciatura em Engenharia Informática - Universidade X</li>
+            <li>Curso de Desenvolvimento Web - Instituição Y</li>
+        </ul>
+    </section>
+
+    <section id="contato">
+        <h2>Contato</h2>
+        <div class="contact-form">
+            <h3>Entre em Contato</h3>
+            <form action="#">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Mensagem:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </section>
+
+    <section id="servicos">
+        <h2>Meus Serviços</h2>
+        <ul>
+            <li>Digitação de trabalhos acadêmicos</li>
+            <li>Criação de slides para apresentações</li>
+            <li>Design de websites</li>
+            <li>Desenvolvimento de sites</li>
+        </ul>
+    </section>
+
+  <section id="meulivro">
+    <h2>Meu Livro</h2>
+   <p>Estou animado para compartilhar com vocês o meu novo livro: </p>
+    <div>
+        <!-- Imagem da capa do livro -->
+        <img src="Milato.jpg" alt="Capa do Livro" style="max-width: 150px; margin-top: 20px; ">
+    </div>
+    <p> <a href="https://www.mediafire.com/file/w3e4lgg4s62ykfo/Livro_10_Dicas_para_Aprender_Melhor_%2528AUTOR_MILATO%2529.pdf/file" target="_blank">Livro 10 Dicas para Aprender Melhor </a></p>
+</section>
+
+
+
+    <footer>
+        <p>&copy; 2024 Minha Página Pessoal. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function toggleMenu() {
+            const menuContent = document.getElementById('menuContent');
+            menuContent.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
